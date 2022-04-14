@@ -9,7 +9,7 @@ resource "aws_security_group" "ring_public_sg1" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["192.168.1.0/24"] # ="0.0.0.0/0"] 
+    cidr_blocks = ["0.0.0.0/0"] #["192.168.1.0/24"] 
   }
 
   ingress {
