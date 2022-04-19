@@ -1,0 +1,14 @@
+[Ring-challenge]
+54.167.48.13
+54.160.208.62
+34.204.18.214
+54.242.78.200
+
+[Ring-challenge:vars]
+ansible_user=ec2-user
+ansible_ssh_private_key_file=~/.ssh/aws_keypair.pem
+
+
+
+
+

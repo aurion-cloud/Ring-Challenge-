@@ -1,0 +1,51 @@
+---
+- hosts: Ring-challenge
+  become: "true"
+  tasks: 
+    #- name: update apt-get(yum in centos) repository
+    #  apt:
+    #    name: "*"
+    #    update_cache: "yes"
+
+
+    - name: add webpage to servers
+      copy: 
+        src: "templates/index.html.j2"
+        dest: "/home/ec2-user/index.html"
+
+    - name: add the Python script 
+      copy: 
+        src: "templates/number.py"
+        dest: "/home/ec2-user/number.py"
+
+    - name: add the cronjob file
+      copy: 
+        src: "templates/cronjob.sh"
+        dest: "/home/ec2-user/cronjob.sh"
+
+    - name: add the ssh key to each server 
+      copy: 
+        src: "~/.ssh/aws_keypair.pem"
+        dest: "/home/ec2-user/.ssh/"
+
+
+    - name: Run a script with arguments
+      command: sudo sh ./cronjob.sh 
+      
+
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+
+  handlers:
+    - name: restart nginx 
+      service:
+        name: nginx
+        state: restarted
+
+
+
+
+#for item in my_list_of_items: 
+#  delete(item)
