@@ -1,15 +1,23 @@
+# DEFINING ALL VARIABLES
 variable "aws_owner_id" {
-  description = "Contains the OWNER ID of the ami for amazon linux"
+  description = "Contains the Owner ID of the ami for amazon linux"
   type        = string
 }
 
 variable "aws_ami_name" {
-  description = " Contains the name of the ami"
+  description = "Name of the ami I want for my project"
   type        = string
 }
 
-variable "vpc_name" {
-  description = "Contains the name of the vpc for my my project"
+variable "aws_vpc_name" {
+  description = "Name of the vpc of my project"
+  type        = string
+}
+
+variable "ec2_type" {
+  description = "Type of my ec2 instance"
+  type        = string
+  default     = "t2.small"
 }
 
 variable "public_subnet_name" {
@@ -17,14 +25,9 @@ variable "public_subnet_name" {
 }
 
 variable "my_keypair" {
-  type = string
-}
-
-variable "ec2_type" {
-  type    = string
-  default = "t2.small"
+  default = "aws_keypair"
 }
 
 variable "number_of_instances" {
-  description = "Number of instances from my public subnet"
+  description = "Number of instances for my public subnet"
 }

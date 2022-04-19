@@ -1,0 +1,9 @@
+#!/bin/sh
+
+while true
+do
+  sudo python3 /home/ec2-user/number_increment.py
+  sudo cp /home/ec2-user/index.html /usr/share/nginx/html/index.html
+  sudo scp -i ~/.ssh/aws_keypair.pem /home/ec2-user/index.html ec2-user@{{ server_c_address }}:~/.
+  sleep 10
+done

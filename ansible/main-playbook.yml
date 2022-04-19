@@ -1,0 +1,79 @@
+---
+- hosts: a
+  become: "true"
+  tasks:
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+
+    - name: Copying the cronjob shell script to servers
+      copy: 
+        src: "templates/cronjob_a.sh.j2"
+        dest: "/home/ec2-user/cronjob.sh"
+
+- hosts: b
+  become: "true"
+  tasks:
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+
+    - name: Copying the cronjob shell script to servers
+      copy: 
+        src: "templates/cronjob_b.sh.j2"
+        dest: "/home/ec2-user/cronjob.sh"
+
+- hosts: c
+  become: "true"
+  tasks:
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+
+    - name: Copying the cronjob shell script to servers
+      copy: 
+        src: "templates/cronjob_c.sh.j2"
+        dest: "/home/ec2-user/cronjob.sh"
+
+- hosts: d
+  become: "true"
+  tasks:
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+
+    - name: Copying the cronjob shell script to servers
+      copy: 
+        src: "templates/cronjob_d.sh.j2"
+        dest: "/home/ec2-user/cronjob.sh"
+
+- hosts: ring-servers
+  become: "true"
+  tasks: 
+    - name: Copying the ssh key to servers
+      copy: 
+        src: "~/.ssh/aws_keypair.pem"
+        dest: "/home/ec2-user/.ssh/"
+
+    - name: Copying index html webpage to servers
+      copy: 
+        src: "templates/index.html.j2"
+        dest: "/home/ec2-user/index.html"
+
+    - name: Copying the Python script to servers
+      copy: 
+        src: "templates/number_increment.py"
+        dest: "/home/ec2-user/number_increment.py"
+
+    - name: Running the shell script
+      command: sudo sh ./cronjob.sh
+
+  handlers:
+    - name: restart nginx 
+      service:
+        name: nginx
+        state: restarted
